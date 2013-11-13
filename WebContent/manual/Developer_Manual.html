@@ -1,0 +1,659 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Developer_Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+*{margin:0;padding:0;}
+body {
+         font:13.34px helvetica,arial,freesans,clean,sans-serif;
+         color:black;
+         line-height:1.4em;
+         background-color: #F8F8F8;
+         padding: 0.7em;
+}
+p {
+         margin:1em 0;
+         line-height:1.5em;
+}
+table {
+         font-size:inherit;
+         font:100%;
+         margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Menlo, Monaco, "DejaVu Sans Mono", "Bitstream Vera Sans Mono",monospace;}
+pre {
+         margin:1em 0;
+         font-size:12px;
+         background-color:#eee;
+         border:1px solid #ddd;
+         padding:5px;
+         line-height:1.5em;
+         color:#444;
+         overflow:auto;
+         -webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+         -webkit-border-radius:3px;
+         -moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+         padding:0;
+         font-size:12px;
+         background-color:#eee;
+         border:none;
+}
+code {
+         font-size:12px;
+         background-color:#f8f8ff;
+         color:#444;
+         padding:0 .2em;
+         border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+sup {
+   font-size: 0.83em;
+   vertical-align: super;
+   line-height: 0;
+}
+* {
+         -webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+   body {
+      width: 854px;
+      margin:0 auto;
+   }
+}
+@media print {
+         table, pre {
+                  page-break-inside: avoid;
+         }
+         pre {
+                  word-wrap: break-word;
+         }
+}
+</style>
+</head>
+<body>
+<p><img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/Developer_Manual.jpg" /></p>
+<h1>Chapter 1</h1>
+<h2>P-CUBE 개발환경 개요</h2>
+<ul>
+<li>
+<h3>각 서버별 소프트웨어 용도 및 버전</h3>
+<ol>
+<li>WEB 서버의 운영체제는 RedHat AS4 버전을 사용했으며, 클라이언트로부터 HTTP 요청을 받아들이고 HTML 문서와 같은 웹페이지의 콘텐츠에 따라 HTTP에 반응하는 기능을 제공하는 소프트웨어는 Apache 2.0.54 버전을 사용하였습니다.  
+</li>
+<li>WAS 서버의 운영체제는 Web 서버와 같으며, 인터넷 상에서 HTTP를 통해 사용자 컴퓨터나 장치에 P-CUBE 어플리케이션을 실행해주는 미들웨어 소프트웨어는 Tomcat 6.0 버전, 빌드 환경을 위해서 JDK 1.6 버전을 사용하였습니다.  
+</li>
+<li>DB 서버의 운영체제는 Web 서버와 같으며, MySQL 5.5.23 버전을 사용해 시스템을 운영하는데 필요한 데이터를 저장하였습니다.  
+</li>
+</ol>
+</li>
+<li>
+<h3>각 서버별 정보</h3>
+<ol>
+<li>WEB / WAS 서버의 상세 설명은 Chapter 2 ~ 4 를 참고해 주십시오.  
+</li>
+<li>WAS / DB 서버에 접속하기 위한 Username 및 Password는 보안상의 이유로 이 문서에는 포함되지 않습니다.  
+</li>
+</ol>
+</li>
+<li>
+<h3>P-CUBE 의 GitHub repository</h3>
+<ol>
+<li>GitHub는 소스관리를 하기위한 분산형 버전관리 시스템 으로서 서버에 설치할 P-CUBE 파일을 만들기 위해 사용합니다.  
+</li>
+<li>P-CUBE 프로젝트의 GitHub 정보 및 소스 받는 방법은 Chapter6을 참고해 주십시오.  
+</li>
+</ol>
+</li>
+</ul>
+<h1>Chapter 2</h1>
+<h2>JAVA 설치</h2>
+<ul>
+<li>
+<h3>JAVA 설치</h3>
+<ol>
+<li><a href="http://java.sun.com/javase/6/webnotes/version-6.html">http://java.sun.com/javase/6/webnotes/version-6.html</a> 에서 JAVA jdk1.6을 찾아서 다운로드 받을 수 있습니다.  
+</li>
+<li>P-CUBE를 설치할 리눅스플랫폼에 맞는 JAVA jdk 1.6을 다운로드 해주십시오.  
+</li>
+<li>
+JAVA의 설치를 아래와 같이 해주십시오.  
+
+<blockquote>
+<p>$ mkdir -p /usr/java<br />
+$ cd /usr/java<br />
+$ chmod 700 /tmp/jdk-6u45-linux-x64.bin<br />
+$ /tmp/jdk-6u45-linux-x64.bin  
+</p>
+</blockquote>
+</li>
+<li>
+환경변수를 설정합니다.
+<blockquote>
+<p>$ export JAVA_HOME=/usr/java/jdk1.6.0_10<br />
+$ export PATH=$JAVA_HOME/bin:$PATH  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h1>Chapter 3</h1>
+<h2>DB 서버 설정</h2>
+<ul>
+<li>
+<h3>MySQL 설치</h3>
+<ol>
+<li><a href="http://dev.mysql.com/downloads">http://dev.mysql.com/downloads</a> 에서 MySQL을 다운로드 받을 수 있습니다.  
+</li>
+<li>P-CUBE를 설치할 리눅스플랫폼에 맞는 MySQL community edition을 다운로드 해주십시오.  
+</li>
+<li>
+<p>이미 설치된 MySQL이 있다면 아래와 같이 삭제해 주십시오.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/mysql1.jpg" />  
+</p>
+</li>
+<li>
+<p>MySQL 패키지 설치를 아래와 같이 해주십시오.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/mysql2.jpg" />    
+</p>
+</li>
+<li>
+<p>MySQL서버의 보안 설정을 아래와 같이 해주십시오.  
+</p>
+<blockquote>
+<p><strong>MySQL에서 아이템에 대한 일반적인 보안 설정</strong><br />
+- root 패스워드 변경<br />
+- anonymous 이용자 삭제<br />
+- 테스트용 기본 데이터베이스 삭제  
+</p>
+</blockquote>
+</li>
+<li>
+<p>MySQL 설치 확인은 아래와 같습니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/mysql3.jpg" />  
+</p>
+</li>
+<li>
+<p>root 이용자로 MySQL 데이터베이스 접속은 아래와 같습니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/mysql4.jpg" />  
+</p>
+</li>
+<li>
+<p>MySQL 시작, 종료는 아래와 같습니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/mysql5.jpg" />  
+</p>
+</li>
+<li>
+<p>MySQL DB, 유저를 생성하고 권한을 설정합니다.  
+</p>
+<blockquote>
+<p>mysql&gt; <strong>CREATE DATABASE cube DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;</strong><br />
+mysql&gt; <strong>use mysql;</strong><br />
+<strong>'USERNAME' 과 'PASSWORD' 의 자리에 각각 사용할 DB유저명과 password를 넣습니다.</strong><br />
+mysql&gt; <strong>insert into user (host,user,password) values('localhost','USERNAME',password('PASSWORD'));</strong><br />
+mysql&gt; <strong>insert into user (host,user,password) values('%','USERNAME',password('PASSWORD'));</strong><br />
+mysql&gt; <strong>insert into db values('%','cube','USERNAME','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y');</strong><br />
+mysql&gt; <strong>insert into db values('localhost','cube','USERNAME','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y');</strong><br />
+mysql&gt; <strong>grant all privileges on <em>.</em> to 'USERNAME'@'%' identified by 'PASSWORD';</strong>  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h1>Chapter 4</h1>
+<h2>WEB 서버 설정</h2>
+<ul>
+<li>
+<h3>Apache Httpd 서버 설치</h3>
+<ol>
+<li><a href="http://www.apache.org">http://www.apache.org</a> 에서 Apache Httpd 를 다운로드 받을 수 있습니다.  
+</li>
+<li>
+<p>다운로드 받은 파일을 아래와 같이 압축을 풀어주십시오.  
+</p>
+<blockquote>
+<p>$ gunzip -d httpd-2_0_NN.tar.gz<br />
+$ tar xvf httpd-2_0_NN.tar	</p>
+</blockquote>
+</li>
+<li>
+<p>레드햇 리눅스에 Apache httpd 설치는 아래와 같습니다.  
+</p>
+<blockquote>
+<p>$ up2date httpd  
+</p>
+</blockquote>
+</li>
+<li>
+<p>Apache httpd 시작은 아래와 같습니다.  
+</p>
+<blockquote>
+<p>$ chkconfig httpd on<br />
+$ /etc/init.d/httpd start  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h1>Chapter 5</h1>
+<h2>WAS 서버 설정</h2>
+<ul>
+<li>
+<h3>Tomcat 서버 설치</h3>
+<ol>
+<li><a href="http://tomcat.apache.org/download-60.cgi">http://tomcat.apache.org/download-60.cgi</a> 에서 Tomcat을 받을 수 있습니다.  
+</li>
+<li>
+<p>다운로드 받은 파일을 아래와 같이 압축을 풀어주십시오.    
+</p>
+<blockquote>
+<p>$ tar zxvf /tmp/apache-tomcat-6.0.37.tar.gz  
+</p>
+</blockquote>
+</li>
+<li>
+<p>Tomcat 서버의 경로를 찾아 들어갑니다.  
+</p>
+<blockquote>
+<p>$ cd tomcat6  
+</p>
+</blockquote>
+</li>
+<li>
+<p>서버 시작과 정지는 아래와 같습니다.  
+</p>
+<blockquote>
+<p>$ /bin/startup.sh<br />
+$ /bin/shutdown.sh</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<h3>Apache Tomcat 연동</h3>
+<ol>
+<li><a href="http://tomcat.apache.org/download-connectors.cgi">http://tomcat.apache.org/download-connectors.cgi</a> 에서 Tomcat connector 를 받을 수 있습니다.  
+</li>
+<li>
+다운로드 받은 파일을 아래와 같이 압축을 풀어주십시오.  
+
+<blockquote>
+<p>$ tar zxvf /tmp/tomcat-connectors-1.2.37-src.tar.gz<br />
+$ cd tomcat-connectors-1.2.37-src<br />
+$ cd native<br />
+$ ./buildconf.sh  
+</p>
+<p><strong>아래와 같이 설치합니다. 'Apache경로'는 Apache설치경로 입니다.</strong><br />
+$ ./configure --with-apxs=/Apache경로/bin/apxs<br />
+$ ls /Apache경로/modules/mod_jk.so  
+</p>
+<p><strong>연동파일을 생성합니다.</strong><br />
+$ /Apache경로/conf/workers.properties<br />
+$ /Apache경로/conf/uriworkermaps.properties  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h1>Chapter 6</h1>
+<h2>Eclipse 설치</h2>
+<ul>
+<li>
+<h3>Eclipse (개발자 PC)</h3>
+<ol>
+<li>
+<p><a href="http://www.eclipse.org/downloads">http://www.eclipse.org/downloads</a> 에서 Eclipse를 받아서 압축을 풀어주십시오.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/eclipse1.jpg" />  
+</p>
+</li>
+<li>
+<p>Eclipse 실행파일을 바로가기 아이콘을 만든 뒤, 속성에 아래와 같이 추가하여 주십시오.  
+</p>
+<blockquote>
+<p>C:\eclipse\eclipse.exe -vm D:\java\j2sdk1.4.2_09\bin\javaw -vmargs -Xms128M -Xmx256M  
+</p>
+<p><strong>속성 설명</strong><br />
+- C:\eclipse\eclipse.exe : Eclipse 실행파일 위치<br />
+-  -vm D:\java\j2sdk1.4.2_09\bin\javaw : Eclipse 실행시 사용할JDK(eclipse3.1은1.4 이상의jdk필요)<br />
+- vmargs -Xms128M -Xmx256M : Eclipse 메모리 설정  
+</p>
+</blockquote>
+</li>
+<li>
+<p>Eclipse 실행하면 다음과 같이 workspace 설정이 나타납니다. 프로젝트의 위치 설정 후, &quot;OK“버튼을 클릭해 주십시오.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/eclipse2.jpg" />  
+</p>
+</li>
+</ol>
+</li>
+<li>
+<h3>Eclipse 에 egit 설치</h3>
+<ol>
+<li>
+<p>eclipse 를 실행하여 상단의 help -&gt; Install new software 를 선택합니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/eclipsegit1.jpg" />  
+</p>
+</li>
+<li>
+<p>add를 클릭하여 사이트 링크를 추가합니다.  
+</p>
+<blockquote>
+<p><strong>Name : egit</strong><br />
+<strong>Location : http://www.jgit.org/updates</strong></p>
+</blockquote>
+<p><img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/eclipsegit2.jpg" />  
+</p>
+</li>
+<li>
+<p>설치할 플러그인을 선택하고 'Next' 버튼을 클릭하여 넘어갑니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/eclipsegit3.jpg" />  
+</p>
+</li>
+<li>
+<p>Install Details 에서 설치할 플러그인을 확인 후 'Next' 버튼을 클릭하여 넘어갑니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/eclipsegit4.jpg" />  
+</p>
+</li>
+<li>
+<p>라이센스에 대하여 물어옵니다. 아래의 그림처럼 선택 후 'finish' 버튼을 클릭하여 넘어갑니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/eclipsegit5.jpg" />  
+</p>
+</li>
+<li>
+<p>설치가 완료되면 이클립스의 재시작여부를 묻습니다. 재시작을 하면 설치가 완료됩니다.  
+</p>
+<blockquote>
+<p><strong>github와 연동하여 프로젝트 체크아웃을 하기위해 꼭 설치하셔야 합니다.</strong>  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h1>Chapter 7</h1>
+<h2>GitHub를 이용한 P-CUBE 프로젝트 체크아웃</h2>
+<ul>
+<li>
+<h3>P-CUBE 체크아웃</h3>
+<p>1.만들기  
+</p>
+</li>
+</ul>
+<h1>Chapter 7</h1>
+<h2>P-CUBE 프로젝트 WAS 서버에 업로드</h2>
+<ul>
+<li>
+<h3>cube.cfg 파일설정</h3>
+<ol>
+<li>
+<p>&quot;cube&quot; 프로젝트의 project-works/config/cube.cfg 파일설정을 해주십시오.  
+</p>
+<blockquote>
+<p><strong>필수 관리정보 세팅</strong><br />
+cube.dir : project-works안의 cube 폴더가 서버에 위치하는 경로입니다.<br />
+cube.hostname : cube의 host명입니다.<br />
+cube.baseUrl : cube의 url주소입니다.<br />
+cube.name : cube의 사이트 사용명입니다.<br />
+db.url : 서버의 MySQL의 경로입니다.<br />
+db.driver : DB driver입니다.<br />
+db.username : DB의 유저명입니다.<br />
+db.password : DB유저의 비밀번호입니다.<br />
+handle.prefix : 시스템 핸들링에 적용되는 고유 키값입니다.  
+</p>
+<p><strong>메일발송을 위한 서버정보 세팅</strong><br />
+mail.server : 메일 서버명으로 메일발송시 서버로 사용될 명칭입니다.<br />
+mail.server.username : 메일주소 메일 발송시 보내는 메일주소 입니다.<br />
+mail.server.password : 메일비밀번호 방송메일주소의 비밀번호입니다.<br />
+mail.admin : 관리자 메일주소로 모니터링의 경고등 특이사항 발생시 알림메일이 가는 메일주소입니다.  
+</p>
+<p><strong>google analytics 관련 세팅</strong><br />
+xmlui.google.analytics.change.key : google analytics 키값입니다. google analytics에 가입하여 사이트 통계정보를 알 수 있습니다. google analytics의 기능을 사용하지 않기를 원할 경우 비워두시기 바랍니다.  
+</p>
+<p><strong>google chart 관련 세팅</strong><br />
+google.chart.username : 구글차트 연동 메일주소입니다.<br />
+google.chart.password : 구글차트 연동 메일비밀번호입니다.<br />
+google.chart.instituteCode : 구글차트 연동 권한 키값입니다. 통계메뉴의 접속통계를 위한 google analytics 연동 권한코드로 사용합니다.  
+</p>
+<p><strong>NDSL openAPI 검색 세팅</strong><br />
+ndsl.openapi.key : NDSL연동을 위한 키값입니다. 아이템 상세보기의 하단에 해당 아이템과 유사한 NDSL논문 정보를 표기하기 위해 사용됩니다. 사용하지 않기를 원할 경우 비워두시기 바랍니다.  
+</p>
+<p><strong>시스템 모니터링 세팅</strong><br />
+cube.system.monitoring.use : 시스템모니터링의 사용여부입니다. 관리자가 CPU, MEMORY,Storage 등의 사용정보를 확인하기 위해 사용됩니다. 기본 설정값은 'N' 입니다.  
+</p>
+<p><strong>레피던트 세팅</strong><br />
+rapidant.use.yn : 레피던트의 사용여부입니다. 아이템 등록시 고속 파일업로드를 위한 애플릿의 사용여부입니다. 기본 설정값은 'N' 입니다.  
+</p>
+<p><strong>주제분류 세팅</strong><br />
+subject.category.yn : 주제분류의 사용여부입니다. 이용자의 선호 주제분류와 아이템의 주제분류선택의 사용여부입니다. 기본 설정값은 'Y' 입니다.  
+</p>
+<p><strong>Mulgara 세팅</strong><br />
+mulgara.use.yn : Mulgara 사용여부입니다. 아이템 상세화면의 하단에 관련 정보 아이템의 리스트를 보여주기 위하여 시멘틱 데이터 구축을 하는 mulgara의 사용여부입니다. 기본 설정값은 'N' 입니다.  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<h3>log4j 파일설정</h3>
+<ol>
+<li>
+&quot;cube&quot; 프로젝트의 project-works/config/log4j.properties 파일설정을 해주십시오.  
+
+<blockquote>
+<p><strong>아래 3가지 설정은 cube의 로그파일이 생성될 경로입니다.</strong><br />
+log4j.appender.A1.File<br />
+log4j.appender.A2.File<br />
+log4j.appender.A3.File  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<h3>ftp 를 사용하여 사용폴더 업로드</h3>
+<ol>
+<li>
+<p>FTP 프로그램을 실행하여 서버에 연결하여 주십시오.  
+</p>
+</li>
+<li>
+<p>&quot;cube&quot; 프로젝트의 project-works안의 cube, solr, share_lib 폴더들을 서버에 복사하여 넣어 주십시오.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/ftp1.jpg" />  
+</p>
+</li>
+</ol>
+</li>
+<li>
+<h3>xml 파일설정</h3>
+<ol>
+<li>
+<p>&quot;cube&quot;, &quot;oai&quot; 프로젝트의 resources/server/applicationContext.xml 파일의 <strong>dataSource bean</strong> 에 DB경로, username, password를 서버에 맞게 변경합니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/xml1.jpg" />  
+</p>
+</li>
+<li>
+<p>&quot;cube&quot;, &quot;oai&quot; 프로젝트의 WebContent/WEB-INF/web.xml 파일의 <strong>cube-config, cube.dir</strong> 에 config file 경로, username, password를 서버에 맞게 변경합니다.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/xml2.jpg" />  
+</p>
+<blockquote>
+<p><strong>oai 프로젝트일 경우 추가 변경항목이 있습니다</strong>  
+</p>
+</blockquote>
+<p><img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/xml3.jpg" />  
+</p>
+</li>
+</ol>
+</li>
+<li>
+<h3>프로젝트 추출 및 업로드</h3>
+<ol>
+<li>
+<p>&quot;cube&quot;, &quot;oai&quot; 프로젝트 위에서 마우스 오른쪽 버튼을 클릭한 뒤, &quot;Export&quot;를 클릭해주십시오.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/export1.jpg" />  
+</p>
+</li>
+<li>
+<p>Export 목록에서 Web / WAR file를 선택한 뒤, &quot;Next &gt;&quot;버튼을 클릭해주십시오.<br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/export2.jpg" />  
+</p>
+</li>
+<li>
+<p>경로와 생성파일명을 지정한 후 &quot;finish&quot;버튼을 클릭해 주십시오.  
+</p>
+<blockquote>
+<p>&quot;cube&quot;의 Export WAR file 이름은 cube.war로 저장해 주십시오.<br />
+&quot;oai&quot;의 Export WAR file 이름은 oai.war로 저장해 주십시오.  
+</p>
+</blockquote>
+<p><img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/export3.jpg" />  
+</p>
+</li>
+<li>
+<p>FTP 프로그램을 실행하여 서버에 연결하여 주십시오.  
+</p>
+</li>
+<li>
+<p>Export된 “cube.war&quot;, &quot;oai.war&quot; 파일을 서버의 아래의 경로에 올려주십시오.  
+</p>
+<blockquote>
+<p>/tomcat6/webapps/  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<h3>solr 설정</h3>
+<ol>
+<li>
+<p>서버의 tomcat6/conf/catalina/localhost 경로에 solr.xml 파일이 있는지 확인 후 없으면 생성합니다.  
+</p>
+<blockquote>
+<p><strong>파일내용 (서버에 넣은 solr폴더 경로와 맞게 넣어주십시오.)</strong><br />
+<img src="https://raw.github.com/hyonani/pcube/master/WebContent/images/solr1.jpg" />  
+</p>
+</blockquote>
+</li>
+<li>
+<p>서버의 tomcat6/conf 경로에 catalina.properties 파일의 'common.loader' 에 서버에 맞게 solr경로를 추가합니다.  
+</p>
+<blockquote>
+<p><strong>작성된 텍스트 뒤에 경로에 맞게 첨부합니다.</strong><br />
+,/home/solr/ext/*.jar  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<h3>Launcher Script 실행을 위한 설정</h3>
+<ol>
+<li>
+<p>서버의 tomcat6/webapps/cube/WEB-INF/classes 경로에서 jar파일을 생성합니다. 생성된 파일은 서버의 cube/lib 경로안에 넣습니다.  
+</p>
+<blockquote>
+<p><strong>서버 커맨드 창에서 경로접근 후 아래와 같이 생성합니다.</strong><br />
+$ jar cvf pcube.jar kr config spring  
+</p>
+</blockquote>
+</li>
+<li>
+<p>서버의 tomcat6/webapps/cube/WEB-INF/lib 경로의 모든 라이브러리 파일을 복사하여 cube/lib 경로안에 넣습니다.  
+</p>
+</li>
+<li>
+<p>서버의 tomcat6/lib 경로의 servlet-api.jar 파일을 복사하여 cube/lib 경로안에 복사하여 넣습니다.  
+</p>
+</li>
+<li>
+<p>서버 접속 프로그램으로 서버에 접속해 주십시오.  
+</p>
+</li>
+<li>
+<p>Tomcat 서버를 재실행하여 주십시오.  
+</p>
+<blockquote>
+<p>$ /bin/shutdown.sh<br />
+$ /bin/startup.sh  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<h3>사용여부에 따른 설정</h3>
+<ol>
+<li>
+<p>시스템 모니터링 사용    
+</p>
+<blockquote>
+<p><strong>서버의 루트경로에 .bash_profile 파일을 수정합니다. LD_LIBRARY_PATH 는 서버경로에 맞게 넣습니다.</strong><br />
+$ vi .bash_profile<br />
+$ export LD_LIBRARY_PATH=/data/home/share_lib<br />
+$ source .bash_profile  
+</p>
+</blockquote>
+</li>
+<li>
+<p>mulgara(시멘틱데이터구축) 사용  
+</p>
+<blockquote>
+<p><strong>cube.cfg 파일을 수정합니다.</strong><br />
+<strong>'='뒤의 부분을 데이터 구축 설정 서버명으로 넣습니다.</strong><br />
+mulgara.data.name = cube<br />
+<strong>서버의 cube/config/mulgara-2.1.13.jar 파일을 실행합니다.</strong><br />
+$ cd cube/config<br />
+$ nohup java -jar mulgara-2.1.13.jar  
+</p>
+</blockquote>
+</li>
+<li>
+<p>Rapidant(고속 파일업로드) 사용</p>
+<blockquote>
+<p>jsvc 설치<br />
+<strong>cube 폴더안의 rapidantServerDaemon.sh 파일을 설정합니다.</strong><br />
+RAPIDANT_HOME : rapidant 서버가 설치되는 경로입니다.<br />
+RAPIDANT_USER : rapidant 유저명입니다.<br />
+JAVA_HOME : jdk가 설치된 경로입니다.<br />
+JSVC_PATH : jsvc가 설치된 경로입니다.<br />
+COMMONS_DAEMON_PATH : commons-daemon파일의 경로입니다.<br />
+36번째 줄의 -p 뒤의 포트번호를 설정합니다.  
+</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
